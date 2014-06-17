@@ -27,7 +27,7 @@
              iabRef.removeEventListener('loadstop', iabLoadStop);
              iabRef.removeEventListener('exit', iabClose);
         }
-        
+
     </script>
 </head>
 <body>
@@ -64,11 +64,14 @@
                     var userDetails = JSON.parse(localStorage.getItem('userDetails'));
 
                     // Print JSON to the page
+                    $("#result").append("ID: "+userDetails.id+", Points: "+userDetails.points+"<br>");
+                    /*
                     for (var i=userDetails.length-1; i>=0; i--){
                         var id = userDetails[i].id;
                         var points = userDetails[i].points;  
                         $("#result").append("ID: "+id+", Points: "+points+"<br>");
                     }
+                    */
                 }, 'json');
             });
 
