@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>InAppBrowser.removeEventListener Example</title>
+    <meta charset="utf-8" />
+    <title>Link Account</title>
 
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
     <script type="text/javascript" charset="utf-8">
+
 
         // Global InAppBrowser reference
         var iabRef = null;
@@ -24,9 +28,39 @@
              iabRef.removeEventListener('exit', iabClose);
         }
 
+        $( "#loadUser" ).bind( "click", function(event, ui) {
+            var userID = $("#userID").val();
+            var jsonUrl = "http://evening-caverns-1488.herokuapp.com/user/";
+
+            $.get(jsonUrl+userID, function(data) {
+                console.log(data);
+
+                // Save the JSON to localstorage
+                localStorage.setItem('userDetails', JSON.stringify(data));
+
+                // Load JSON from localstorage
+                var userDetails = JSON.parse(localStorage.getItem('userDetails'));
+
+                // Print JSON to the page
+                for (var i=userDetails.length-1; i>=0; i--){
+                    var id = userDetails[i].id;
+                    var points = userDetails[i].points;  
+                    $("#result").append("ID: "+id+", Points: "+points+"<br>");
+                }
+            }, 'json');
+        });
+
     </script>
 </head>
 <body>
+
+    <h3>Enter your ID or Register</h3>
+    
+    <input name="text-1" id="userID" type="text" />
+    <input type="submit" value="Load User" id="loadUser" />
+
+    <div id="result"  class="functions"></div>
+
     <p>
         <button type="button" onclick="window.open('http://evening-caverns-1488.herokuapp.com/auth/facebook','_blank','location=yes')">Register with Facebook</button>
     </p>
