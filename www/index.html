@@ -27,29 +27,7 @@
              iabRef.removeEventListener('loadstop', iabLoadStop);
              iabRef.removeEventListener('exit', iabClose);
         }
-
-        $( "#loadUser" ).bind( "click", function(event, ui) {
-            var userID = $("#userID").val();
-            var jsonUrl = "http://evening-caverns-1488.herokuapp.com/user/";
-
-            $.get(jsonUrl+userID, function(data) {
-                console.log(data);
-
-                // Save the JSON to localstorage
-                localStorage.setItem('userDetails', JSON.stringify(data));
-
-                // Load JSON from localstorage
-                var userDetails = JSON.parse(localStorage.getItem('userDetails'));
-
-                // Print JSON to the page
-                for (var i=userDetails.length-1; i>=0; i--){
-                    var id = userDetails[i].id;
-                    var points = userDetails[i].points;  
-                    $("#result").append("ID: "+id+", Points: "+points+"<br>");
-                }
-            }, 'json');
-        });
-
+        
     </script>
 </head>
 <body>
@@ -64,6 +42,38 @@
     <p>
         <button type="button" onclick="window.open('http://evening-caverns-1488.herokuapp.com/auth/facebook','_blank','location=yes')">Register with Facebook</button>
     </p>
+
+    <script type="text/javascript">
+        $(document).bind('pageinit', function() {
+            
+            $.ajaxSetup ({
+                cache: false
+            });
+
+            $( "#loadUser" ).bind( "click", function(event, ui) {
+                var userID = $("#userID").val();
+                var jsonUrl = "http://evening-caverns-1488.herokuapp.com/user/";
+
+                $.get(jsonUrl+userID, function(data) {
+                    console.log(data);
+
+                    // Save the JSON to localstorage
+                    localStorage.setItem('userDetails', JSON.stringify(data));
+
+                    // Load JSON from localstorage
+                    var userDetails = JSON.parse(localStorage.getItem('userDetails'));
+
+                    // Print JSON to the page
+                    for (var i=userDetails.length-1; i>=0; i--){
+                        var id = userDetails[i].id;
+                        var points = userDetails[i].points;  
+                        $("#result").append("ID: "+id+", Points: "+points+"<br>");
+                    }
+                }, 'json');
+            });
+
+        });
+    </script>
 </body>
 </html>
 <!--
