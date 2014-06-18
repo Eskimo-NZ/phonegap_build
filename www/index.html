@@ -28,6 +28,10 @@
              iabRef.removeEventListener('exit', iabClose);
         }
 
+        function changeToGreen() {
+            window.location = "greenman.html";
+        }
+
     </script>
 </head>
 <body>
@@ -39,7 +43,7 @@
 
     <div id="result"  class="functions"></div>
 
-    <a href="greenman.html">Green Man</a> 
+    <button name="green" onclick="changeToGreen()">Green Man</button>
 
     <p>
         <button type="button" onclick="window.open('http://evening-caverns-1488.herokuapp.com/auth/facebook','_blank','location=yes')">Register with Facebook</button>
