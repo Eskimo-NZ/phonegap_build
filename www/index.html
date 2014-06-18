@@ -35,9 +35,11 @@
     <h3>Enter your ID or Register</h3>
     
     <input name="text-1" id="userID" type="text" />
-    <input type="submit" value="Load User" id="loadUser" />
+    <input type="submit" value="Verify User" id="verifyUser" />
 
     <div id="result"  class="functions"></div>
+
+    <a href="greenman.html">Green Man</a> 
 
     <p>
         <button type="button" onclick="window.open('http://evening-caverns-1488.herokuapp.com/auth/facebook','_blank','location=yes')">Register with Facebook</button>
@@ -50,92 +52,24 @@
                 cache: false
             });
 
-            $( "#loadUser" ).bind( "click", function(event, ui) {
-                var userID = $("#userID").val();
-                var jsonUrl = "http://evening-caverns-1488.herokuapp.com/user/";
+            $( "#verifyUser" ).bind( "click", function(event, ui) {
+                var id = $("#userID").val();
+                var jsonUrl = "http://evening-caverns-1488.herokuapp.com/verifyuser/";
 
-                $.get(jsonUrl+userID, function(data) {
+                $.get(jsonUrl+id, function(data) {
                     console.log(data);
 
                     // Save the JSON to localstorage
-                    localStorage.setItem('userDetails', JSON.stringify(data));
+                    localStorage.setItem('userID', JSON.stringify(data));
 
                     // Load JSON from localstorage
-                    var userDetails = JSON.parse(localStorage.getItem('userDetails'));
+                    var userID = JSON.parse(localStorage.getItem('userID'));
 
                     // Print JSON to the page
-                    $("#result").append("ID: "+userDetails.id+", Points: "+userDetails.points+"<br>");
-                    /*
-                    for (var i=userDetails.length-1; i>=0; i--){
-                        var id = userDetails[i].id;
-                        var points = userDetails[i].points;  
-                        $("#result").append("ID: "+id+", Points: "+points+"<br>");
-                    }
-                    */
-                }, 'json');
-            });
-
-        });
-    </script>
-</body>
-</html>
-<!--
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Link Account</title>
-
-    <link rel="stylesheet" type="text/css" href="css/index.css" />
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
-    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
-    
-</head>
-<body>
-    <h3>Enter your ID or Register</h3>
-    
-    <input name="text-1" id="userID" value="1" type="text" />
-    <input type="submit" value="Load User" id="button1" />
-
-    <div id="result"  class="functions"></div>
-
-    <a href="http://evening-caverns-1488.herokuapp.com/auth/facebook">Register with Facebook</a><br></br>
-
-    <p>link test<br /><br />
-        <a href="#" onclick="window.open('http://www.wikipedia.org','_self','location=yes')">Wikipedia (webview)</a><br /><br />
-        <a href="#" onclick="window.open('http://www.wikipedia.org','_blank','location=yes')">Wikipedia (inAppBrowser)</a><br /><br />
-        <a href="#" onclick="window.open('http://www.wikipedia.org','_system','location=yes')">Wikipedia (mobile browser)</a><br /><br />
-    </p>
-
-    <script type="text/javascript">
-        $(document).bind('pageinit', function() {
-            $.ajaxSetup ({
-                cache: false
-            });
-
-            $( "#button1" ).bind( "click", function(event, ui) {
-                var userID = $("#userID").val();
-                var jsonUrl = "http://evening-caverns-1488.herokuapp.com/user/";
-
-                $.get(jsonUrl+userID, function(data) {
-                    console.log(data);
-
-                    // Save the JSON to localstorage
-                    localStorage.setItem('userDetails', JSON.stringify(data));
-
-                    // Load JSON from localstorage
-                    var userDetails = JSON.parse(localStorage.getItem('userDetails'));
-
-                    // Print JSON to the page
-                    for (var i=userDetails.length-1; i>=0; i--){
-                        var id = userDetails[i].id;
-                        var points = userDetails[i].points;  
-                        $("#result").append("ID: "+id+", Points: "+points+"<br>");
-                    }
+                    $("#result").append("Verified User ID: "+userID+"<br>");
                 }, 'json');
             });
         });
     </script>
 </body>
 </html>
--->
