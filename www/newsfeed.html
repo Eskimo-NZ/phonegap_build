@@ -27,9 +27,9 @@
 
             // Print JSON to the page
             for (var i=newsData.length-1; i>=0; i--){
-                var person = newsData[i].person;
+                var name = newsData[i].name;
                 var comment = newsData[i].comment;  
-                $("#result").append("Person: "+person+", Comment: "+comment+"<br>");
+                $("#result").append("Person: "+name+", News: "+comment+"<br>");
             }
         }
     </script>
@@ -38,6 +38,10 @@
 <body onload="refresh()">
 
     <h3>News Feed</h3>
+
+    <input name="text-1" id="text1" value="" type="text">
+    <input name="text-2" id="text2" value="" type="text">
+    <input type="submit" value="Submit News" id="submitNews" />
 
     <input type="submit" value="Load News" id="loadNews" />
 
@@ -50,6 +54,30 @@
             
             $.ajaxSetup ({
                 cache: false
+            });
+
+            // Add person and commment to the database and display the whole news feed
+            $( "#submitButton" ).bind( "click", function(event, ui) {
+                var name = $("#text1").val();
+                var comment = $("#text2").val();
+                var jsonUrl = "http://rocky-plains-9495.herokuapp.com/database";
+                var newComment = { "name" : name, "comment" : comment };
+                $.post(jsonUrl,newComment, function(data) {
+                    alert("Posting a new comment");
+                }, 'json');
+
+                // Load JSON from localstorage
+                var newsFeed = JSON.parse(localStorage.getItem('newsFeed'));
+
+                // Print JSON to the page
+                $("#result").empty();
+                $("#result").append("Person: "+name+", News: "+comment+"<br>");
+                for (var i=newsFeed.length-1; i>=0; i--){
+                    name = newsFeed[i].name;
+                    comment = newsFeed[i].comment;
+                    $("#result").append("Person: "+name+", Comment: "+comment+"<br>");
+                }
+
             });
 
             // Calls the refresh function
