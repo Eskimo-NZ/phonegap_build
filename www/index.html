@@ -50,8 +50,9 @@
 
     <div id="result"  class="functions"></div>
 
-    <button name="green" onclick="changeTo('Green Man')">Green Man</button>
-    <button name="events" onclick="changeTo('Events Page')">Events Page</button>
+    <button name="green" onclick="changeTo('Green Man')">Green Man</button></br>
+    <button name="events" onclick="changeTo('Events Page')">Events Page</button></br>
+    <button name="newsfeed" onclick="changeTo('News Feed')">News Feed</button>
 
     <p>
         <button type="button" onclick="window.open('http://evening-caverns-1488.herokuapp.com/auth/facebook','_blank','location=yes')">Register with Facebook</button>
@@ -66,19 +67,19 @@
 
             $( "#verifyUser" ).bind( "click", function(event, ui) {
                 var id = $("#userID").val();
-                var jsonUrl = "http://evening-caverns-1488.herokuapp.com/verifyuser/";
+                var jsonUrl = "http://evening-caverns-1488.herokuapp.com/user/";
 
                 $.get(jsonUrl+id, function(data) {
                     console.log(data);
 
                     // Save the JSON to localstorage
-                    localStorage.setItem('userID', JSON.stringify(data));
+                    localStorage.setItem('userData', JSON.stringify(data));
 
                     // Load JSON from localstorage
-                    var userID = JSON.parse(localStorage.getItem('userID'));
+                    var userID = JSON.parse(localStorage.getItem('userData'));
 
                     // Print JSON to the page
-                    $("#result").append("Verified User ID: "+userID+"<br>");
+                    $("#result").append("Verified User ID: "+userID.id+"<br>");
                 }, 'json');
             });
         });

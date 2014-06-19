@@ -11,14 +11,35 @@
         function changeToHome() {
             window.location = "index.html";
         }
+
+        function refresh(){
+            var jsonUrl = "http://evening-caverns-1488.herokuapp.com/news";
+
+            $.get(jsonUrl, function(data) {
+                console.log(data);
+
+                // Save the JSON to localstorage
+                localStorage.setItem('newsData', JSON.stringify(data));
+            }, 'json');
+
+            // Load JSON from localstorage
+            var newsData = JSON.parse(localStorage.getItem('newsData'));
+
+            // Print JSON to the page
+            for (var i=newsData.length-1; i>=0; i--){
+                var person = newsData[i].person;
+                var comment = newsData[i].comment;  
+                $("#result").append("Person: "+person+", Comment: "+comment+"<br>");
+            }
+        }
     </script>
 
 </head>
-<body>
+<body onload="refresh()">
 
     <h3>News Feed</h3>
 
-    <input type="submit" value="Load User" id="loadUser" />
+    <input type="submit" value="Load News" id="loadNews" />
 
     <div id="result"  class="functions"></div>
 
@@ -29,6 +50,11 @@
             
             $.ajaxSetup ({
                 cache: false
+            });
+
+            // Calls the refresh function
+            $( "#loadNews" ).bind( "click", function(event, ui) {
+                refresh();
             });
 
             $( "#loadUser" ).bind( "click", function(event, ui) {

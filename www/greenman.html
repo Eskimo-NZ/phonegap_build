@@ -32,7 +32,7 @@
             });
 
             $( "#loadUser" ).bind( "click", function(event, ui) {
-                var userID = JSON.parse(localStorage.getItem('userID'));
+                var userID = JSON.parse(localStorage.getItem('userData')).id;
                 if (userID == null) {
                     // Print JSON to the page
                     $("#result").append("No user id in localstorage");
