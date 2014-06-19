@@ -57,28 +57,6 @@
                 refresh();
             });
 
-            $( "#loadUser" ).bind( "click", function(event, ui) {
-                var userID = JSON.parse(localStorage.getItem('userID'));
-                if (userID == null) {
-                    // Print JSON to the page
-                    $("#result").append("No user id in localstorage");
-                    return;
-                }
-                var jsonUrl = "http://evening-caverns-1488.herokuapp.com/user/";
-
-                $.get(jsonUrl+userID, function(data) {
-                    console.log(data);
-
-                    // Save the JSON to localstorage
-                    localStorage.setItem('userData', JSON.stringify(data));
-
-                    // Load JSON from localstorage
-                    var userData = JSON.parse(localStorage.getItem('userData'));
-
-                    // Print JSON to the page
-                    $("#result").append("ID: "+userData.id+", Points: "+userData.points+"<br>");
-                }, 'json');
-            });
         });
     </script>
 </body>
