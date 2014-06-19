@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>News Feed</title>
+
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        function changeToHome() {
+            window.location = "index.html";
+        }
+    </script>
+
+</head>
+<body>
+
+    <h3>News Feed</h3>
+
+    <input type="submit" value="Load User" id="loadUser" />
+
+    <div id="result"  class="functions"></div>
+
+    <button name="home" onclick="changeToHome()">Home</button>
+
+    <script type="text/javascript">
+        $(document).bind('pageinit', function() {
+            
+            $.ajaxSetup ({
+                cache: false
+            });
+
+            $( "#loadUser" ).bind( "click", function(event, ui) {
+                var userID = JSON.parse(localStorage.getItem('userID'));
+                if (userID == null) {
+                    // Print JSON to the page
+                    $("#result").append("No user id in localstorage");
+                    return;
+                }
+                var jsonUrl = "http://evening-caverns-1488.herokuapp.com/user/";
+
+                $.get(jsonUrl+userID, function(data) {
+                    console.log(data);
+
+                    // Save the JSON to localstorage
+                    localStorage.setItem('userData', JSON.stringify(data));
+
+                    // Load JSON from localstorage
+                    var userData = JSON.parse(localStorage.getItem('userData'));
+
+                    // Print JSON to the page
+                    $("#result").append("ID: "+userData.id+", Points: "+userData.points+"<br>");
+                }, 'json');
+            });
+        });
+    </script>
+</body>
+</html>
