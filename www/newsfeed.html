@@ -60,7 +60,7 @@
             $( "#submitButton" ).bind( "click", function(event, ui) {
                 var name = $("#text1").val();
                 var comment = $("#text2").val();
-                var jsonUrl = "http://rocky-plains-9495.herokuapp.com/database";
+                var jsonUrl = "http://evening-caverns-1488.herokuapp.com/news";
                 var newComment = { "name" : name, "comment" : comment };
                 $.post(jsonUrl,newComment, function(data) {
                     alert("Posting a new comment");
