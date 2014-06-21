@@ -58,7 +58,7 @@
             // Add person and commment to the database and display the whole news feed
             $( "#submitNews" ).bind( "click", function(event, ui) {
                 // Gets the users full name from storage
-                var fullname = JSON.parse(localStorage.getItem('userData'));
+                var fullname = JSON.parse(localStorage.getItem('userData')).fullname;
                 // End the function if there is no user in storage
                 if (fullname == null) {
                     return;
