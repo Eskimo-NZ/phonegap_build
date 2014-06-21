@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Staff</title>
+
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        function changeToHome() {
+            window.location = "index.html";
+        }
+
+        function refresh(){
+            var jsonUrl = "http://evening-caverns-1488.herokuapp.com/users";
+
+            $.get(jsonUrl, function(data) {
+                console.log(data);
+
+                // Print JSON to the page
+                for (var i=data.length-1; i>=0; i--){
+                    var fullname = data[i].fullname;
+                    var id = data[i].id;  
+                    var points = data[i].points;
+
+                    $("#result").empty();
+                    $("#result").append("Fullname: "+fullname+", ID: "+id+", Current Points: "+points+"<br>");
+                }
+
+            }, 'json');
+            
+        }
+    </script>
+
+</head>
+<body onload="refresh()">
+
+    <h3>Staff - Points Update</h3>
+
+    <!-- Only show this if they are staff
+    JSON.parse(localStorage.getItem('userData')).typeofuser === 'staff'
+    -->
+    <input name="text-1" id="userid" value=" " type="text"> <!-- This is for User id -->
+    <input name="text-1" id="greenexp" value=" " type="number"> <!-- This is for Greenpoints -->
+    <input type="submit" value="Submit" id="submit" />
+    <input type="submit" value="Refresh" id="loadUsers" /> <!-- Refresh to diaplay people and their points -->
+
+    <div id="result"  class="functions"></div>
+
+    <button name="home" onclick="changeToHome()">Home</button>
+
+    <script type="text/javascript">
+        $(document).bind('pageinit', function() {
+            
+            $.ajaxSetup ({
+                cache: false
+            });
+
+            // Calls the refresh function
+            $( "#loadUsers" ).bind( "click", function(event, ui) {
+                refresh();
+            });
+
+            /* TAKEN THE USER ID AND POINTS AND SENT TO THE SERVER */
+            $( "#submit" ).bind( "click", function(event, ui) {
+                var id = $("#userid").val(); // the person's id to give points to
+                var points = $("#greenexp").val(); // the number of points 
+                var jsonUrl = "http://evening-caverns-1488.herokuapp.com/updatepoints"; 
+                var newPoint = { "id" : id, "points" : points };
+                $.post(jsonUrl,newPoint, function(data) { // It's better to use put rather than post 
+                  alert("Updated new points " + data.id + " said " + data.points);
+                }, 'json');
+            });
+
+        });
+    </script>
+</body>
+</html>
