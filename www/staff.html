@@ -18,13 +18,14 @@
             $.get(jsonUrl, function(data) {
                 console.log(data);
 
+                $("#result").empty();
                 // Print JSON to the page
                 for (var i=data.length-1; i>=0; i--){
                     var fullname = data[i].fullname;
                     var id = data[i].id;  
                     var points = data[i].points;
 
-                    $("#result").empty();
+
                     $("#result").append("Fullname: "+fullname+", ID: "+id+", Current Points: "+points+"<br>");
                 }
 
