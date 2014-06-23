@@ -2,7 +2,7 @@
 
 This repository was made as a fully working PhoneGap build that incorporates all of the necessary calls to our server that is needed to make the final PhoneGap build.
 
-The code in this repository was solely compliled by *Alex Candler*
+The code in this repository was solely compliled by **Alex Candler**
 
 ###Files
 
