@@ -1,13 +1,19 @@
-PhoneGap build for NWEN304/MDDN352
+Client-Side Example Code for NWEN304 Group Project
 
-Working Features
-* Register with facebook
-* Verify user by entering facebook id on the homepage
-* Once a user has been verified on the device you can get the green man points for that user on the greenman page
-* View all events/create an event (designers should only make this visable to staff)
-* View all news/add a news post
+This repository was made as a fully working PhoneGap build that incorporates all of the necessary calls to our server that is needed to make the final PhoneGap build.
 
-Things yet to implement
-* Adding firstname to a user when they are created
-* Adding a username to a user when they are created (Might not happen)
-* Create a page for a staff member to change the green points
+The code in this repository was solely compliled by Alex Candler
+
+Files
+
+www/
+
+  index.html
+
+  staff.html
+
+  greeenman.html
+
+  events.html
+
+  newsfeed.html
